@@ -1,7 +1,7 @@
 <template>
   <div class="TodoApp">
     <MonFormulaire :tasks="tasks"></MonFormulaire>
-    <MaTache v-for="task in tasks" :key="task.id" :task="task" :tasks="tasks"></MaTache>
+    <MaTache v-for="task in tasks" :key="task.id" :task="task" @delete="onDelete"></MaTache>
   </div>
 </template>
 
@@ -17,6 +17,13 @@ export default {
   components: {
     MonFormulaire,
     MaTache
+  },
+
+  methods: {
+    onDelete(index) {
+      const id = this.tasks.findIndex((task) => task.id === index)
+      this.tasks.splice(id, 1)
+    }
   }
 }
 </script>

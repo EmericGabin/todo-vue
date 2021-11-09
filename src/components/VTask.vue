@@ -1,5 +1,5 @@
 <template>
-  <div class="task" :class="{ 'task--completed': completed }" @click="onClick">
+  <div :class="classes" @click="onClick">
     <div class="task__content">
       <h2 class="task__title">{{ task.title }} - {{ task.id }}</h2>
       <p class="task__place-time">{{ task.place }} - {{ task.time }}</p>
@@ -11,28 +11,52 @@
 
 <script>
 export default {
-  props: ['task', 'tasks'],
+  props: ['task'],
 
   data() {
     return {
-      completed: false
+      currentClass: 'close',
+      completed: false,
+      name: 'manu',
+      age: 29
+    }
+  },
+
+  computed: {
+    classes() {
+      const c = {}
+      c[`task--${this.currentClass}`] = true
+      c[`age-${this.age}`] = true
+      return c
     }
   },
 
   methods: {
     onClick() {
-      console.log('click')
       this.completed = !this.completed
     },
 
     onDelete() {
-      console.log('delete')
-      // const id = this.id
-      
-      const id = this.tasks.findIndex((task) => task.id === this.task.id)
-      console.log(id)
-      this.tasks.splice(id, 1)
+      this.$emit('delete', this.task.id)
+      // this.tasks.splice(id, 1)
     }
+  },
+
+  // LIFE CYCLE
+  created() {
+    console.log('created')
+  },
+
+  mounted() {
+    console.log('mounted')
+  },
+
+  updated() {
+    console.log('updated')
+  },
+
+  destroyed() {
+    console.log('destroy')
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form @submit.prevent="onSubmit">
+    <form ref="myForm" @submit.prevent="onSubmit">
       <input
         class="todo__input todo__input--title"
         name="title"
@@ -44,7 +44,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.tasks)
+    console.log(this.$refs.myForm)
   },
 
   methods: {
