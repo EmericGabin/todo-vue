@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       toggle: false,
-      id: 0,
+      id : 0,
       form: {
         title: null,
         place: null,
@@ -55,6 +55,7 @@ export default {
 
   methods: {
     onSubmit(event) {
+      this.checkId()
       const task = {
         ...this.form,
         id: this.id,
@@ -68,12 +69,22 @@ export default {
       Object.keys(this.form).forEach(key => {
         this.form[key] = null
       })
-
-      this.id++
+      console.log(this.tasks.length)
     },
 
     onToggle() {
       this.toggle = !this.toggle
+    },
+
+    checkId(){
+      if(this.tasks.length > 0){
+        this.id = this.tasks[this.tasks.length - 1].id
+        this.id++
+      }
+      else{
+        this.id = 0
+        this.id++
+      }
     }
   }
 }

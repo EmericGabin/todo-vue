@@ -39,6 +39,7 @@ export default {
   methods: {
     onClick() {
       this.task.completed = !this.task.completed
+      console.log(this.task.id)
     },
 
     onDelete() {

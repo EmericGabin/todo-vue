@@ -39,6 +39,7 @@ export default {
     const tasks = localStorage.getItem('todo')
     if (tasks) {
       this.tasks = JSON.parse(tasks)
+      //console.log(this.tasks)
     }
   },
 
@@ -60,8 +61,10 @@ export default {
     toggleForm(event, value) {
       if (value !== undefined) {
         this.showForm = value
+        //console.log(this.showForm)
       } else {
         this.showForm = !this.showForm
+        //console.log(this.showForm)
       }
     }
   }
