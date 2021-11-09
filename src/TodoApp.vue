@@ -6,7 +6,9 @@
       <MonFormulaire v-show="showForm" :tasks="tasks" @submit="toggleForm(false)"></MonFormulaire>
     </transition>
 
-    <MaTache v-for="task in tasks" :key="task.id" :task="task" @delete="onDelete"></MaTache>
+    <div class="tasks overflow-auto">
+      <MaTache v-for="task in tasks" :key="task.id" :task="task" @delete="onDelete"></MaTache>
+    </div>
   </div>
 </template>
 

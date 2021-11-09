@@ -1,26 +1,30 @@
 <template>
-  <div class="bg-gray-100" :class="classes" @click="onClick">
-    <div class="task__content">
-      <div v-html="html"></div>
-      <h2 class="task__title">{{ task.title }} - {{ task.id }}</h2>
+  <div class="cursor-pointer bg-gray-100 container mx-auto my-6 rounded px-6 py-4 flex justify-between items-center" :class="classes" @click="onClick">
+    <div class="task__check w-8 h-8 rounded bg-gray-300 mr-10 relative">
+      <div class="checked absolute w-6 h-6 rounded bg-red-400 opacity-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-show="completed"></div>
+    </div>
+    <div class="task__content mr-auto">
+      <h2 class="task__title font-black text-lg text-pink-600 uppercase" :class="{'line-through': completed}">{{ task.title }}</h2>
       <p class="task__place-time">{{ task.place }} - {{ task.time }}</p>
       <p class="task__description">{{ task.description }}</p>
     </div>
-    <button class="task__delete" @click.stop="onDelete()">x</button>
+    <button class="task__delete w-10" @click.stop="onDelete()">
+      <img class="w-full h-full" src="../assets/delete.svg" alt="">
+    </button>
   </div>
 </template>
 
 <script>
+
+
 export default {
   props: ['task'],
 
+
   data() {
     return {
-      html: '<h2>Hello</h2>',
       currentClass: 'close',
       completed: false,
-      name: 'manu',
-      age: 29
     }
   },
 
@@ -28,7 +32,7 @@ export default {
     classes() {
       const c = {}
       c[`task--${this.currentClass}`] = true
-      c[`age-${this.age}`] = true
+      c[`opacity-60`] = this.completed
       return c
     }
   },
@@ -40,7 +44,6 @@ export default {
 
     onDelete() {
       this.$emit('delete', this.task.id)
-      // this.tasks.splice(id, 1)
     }
   },
 
