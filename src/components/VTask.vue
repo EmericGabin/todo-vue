@@ -1,6 +1,7 @@
 <template>
-  <div :class="classes" @click="onClick">
+  <div class="bg-gray-100" :class="classes" @click="onClick">
     <div class="task__content">
+      <div v-html="html"></div>
       <h2 class="task__title">{{ task.title }} - {{ task.id }}</h2>
       <p class="task__place-time">{{ task.place }} - {{ task.time }}</p>
       <p class="task__description">{{ task.description }}</p>
@@ -15,6 +16,7 @@ export default {
 
   data() {
     return {
+      html: '<h2>Hello</h2>',
       currentClass: 'close',
       completed: false,
       name: 'manu',
