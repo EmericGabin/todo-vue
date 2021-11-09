@@ -35,6 +35,22 @@ export default {
     }
   },
 
+  mounted() {
+    const tasks = localStorage.getItem('todo')
+    if (tasks) {
+      this.tasks = JSON.parse(tasks)
+    }
+  },
+
+  watch: {
+    tasks: {
+      handler: (val, oldVal) => {
+        localStorage.setItem('todo', JSON.stringify(val))
+      },
+      deep: true
+    }
+  },
+
   methods: {
     onDelete(index) {
       const id = this.tasks.findIndex((task) => task.id === index)
@@ -42,7 +58,6 @@ export default {
     },
 
     toggleForm(event, value) {
-      console.log(value)
       if (value !== undefined) {
         this.showForm = value
       } else {
@@ -66,11 +81,21 @@ export default {
 }
 
 
-.list-enter-active, .list-leave-active {
+.list-enter-active {
+  transition: all 1s;
+  /* transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1); */
+}
+
+.list-leave-active {
   transition: all 1s;
 }
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+.list-enter /* .list-leave-active below version 2.1.8 */ {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

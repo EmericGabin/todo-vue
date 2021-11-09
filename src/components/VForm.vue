@@ -57,7 +57,8 @@ export default {
     onSubmit(event) {
       const task = {
         ...this.form,
-        id: this.id
+        id: this.id,
+        completed: false
       }
       this.tasks.push(task)
 

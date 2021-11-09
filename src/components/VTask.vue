@@ -1,10 +1,10 @@
 <template>
   <div class="cursor-pointer bg-gray-100 container mx-auto my-6 rounded px-6 py-4 flex justify-between items-center" :class="classes" @click="onClick">
     <div class="task__check w-8 h-8 rounded bg-gray-300 mr-10 relative">
-      <div class="checked absolute w-6 h-6 rounded bg-red-400 opacity-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-show="completed"></div>
+      <div class="checked absolute w-6 h-6 rounded bg-red-400 opacity-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-show="task.completed"></div>
     </div>
     <div class="task__content mr-auto">
-      <h2 class="task__title font-black text-lg text-pink-600 uppercase" :class="{'line-through': completed}">{{ task.title }}</h2>
+      <h2 class="task__title font-black text-lg text-pink-600 uppercase" :class="{'line-through': task.completed}">{{ task.title }}</h2>
       <p class="task__place-time">{{ task.place }} - {{ task.time }}</p>
       <p class="task__description">{{ task.description }}</p>
     </div>
@@ -24,7 +24,6 @@ export default {
   data() {
     return {
       currentClass: 'close',
-      completed: false,
     }
   },
 
@@ -32,14 +31,14 @@ export default {
     classes() {
       const c = {}
       c[`task--${this.currentClass}`] = true
-      c[`opacity-60`] = this.completed
+      c[`opacity-60`] = this.task.completed
       return c
     }
   },
 
   methods: {
     onClick() {
-      this.completed = !this.completed
+      this.task.completed = !this.task.completed
     },
 
     onDelete() {
