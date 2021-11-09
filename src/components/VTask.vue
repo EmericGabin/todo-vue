@@ -1,20 +1,52 @@
 <template>
-  <div class="task">
-    <h2 class="task__title">{{ title }}</h2>
-    <p class="task__place-time">{{ place }} - {{ time }}</p>
-    <p class="task__description">{{ description }}</p>
+  <div class="task" :class="{ 'task--completed': completed }" @click="onClick">
+    <div class="task__content">
+      <h2 class="task__title">{{ task.title }} - {{ task.id }}</h2>
+      <p class="task__place-time">{{ task.place }} - {{ task.time }}</p>
+      <p class="task__description">{{ task.description }}</p>
+    </div>
+    <button class="task__delete" @click.stop="onDelete()">x</button>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['task', 'tasks'],
+
   data() {
     return {
-      title: "Un titre",
-      place: "Paris",
-      time: "12h12",
-      description: "Id ut enim quis quis aute velit sint veniam ad elit velit cillum. Esse culpa duis nostrud fugiat aliquip proident veniam laborum ullamco."
+      completed: false
+    }
+  },
+
+  methods: {
+    onClick() {
+      console.log('click')
+      this.completed = !this.completed
+    },
+
+    onDelete() {
+      console.log('delete')
+      // const id = this.id
+      
+      const id = this.tasks.findIndex((task) => task.id === this.task.id)
+      console.log(id)
+      this.tasks.splice(id, 1)
     }
   }
 }
 </script>
+
+<style scoped>
+.task {
+  margin: 12px;
+}
+
+.task.task--completed {
+  opacity: 0.5;
+}
+
+.task.task--completed .task__title{
+  text-decoration: line-through;
+}
+</style>
